@@ -1,1 +1,7 @@
+#Папки
 image/
+node_modules/
+
+#файлы
+package-lock.json
+package.json
