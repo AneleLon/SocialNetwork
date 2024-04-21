@@ -16,7 +16,7 @@ for($i=0; $i < $rows; ++$i){
     $resultQuery->data_seek($i);
     echo 'Name: '. $resultQuery->fetch_assoc()['name'] . '<br>';
 }
-
+echo "dsadfds";
 //echo '<pre>';
 //print_r($resultQuery);
 //echo '</pre>';
