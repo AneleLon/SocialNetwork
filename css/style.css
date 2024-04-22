@@ -11,6 +11,14 @@ a{
     text-decoration: none;
     color: inherit;
 }
+input{
+    padding:10px 12px;
+    display: block;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #c2c1c1;
+    line-height: 1.5rem;
+}
 
 /*Header*/
 
@@ -38,5 +46,81 @@ header ul li a{
     display: block;
     font-size: 1.2rem;
     text-decoration: none;
-    padding: 18px;
+    padding: 20px;
+}
+header ul li a:hover{
+    background: #006669;
+    transition: 0.5s;
+    color:#fff;
+}
+header ul li ul{
+    position: absolute;
+    top: 70px;
+    right: 0px;
+    width: 196px;
+    display: none;
+    z-index: 88888;
+}
+header ul li:hover ul{
+    display: block;
+}
+header ul li ul li{
+    width: 100%;
+}
+header ul li ul li a{
+    padding: 10px;
+    background: white;
+    color: #008489;
+}
+
+/*
+main news
+*/
+
+.post{
+    margin-top: 15px;
+    background: #ffffff;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: #c2c1c1;
+    padding: 20px;
+}
+.filter ul{
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+}
+.section{
+    margin-top: 15px;
+    background: #ffffff;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: #c2c1c1;
+    padding: 20px;
+}
+.filter ul li a{
+    display:block;
+    padding: 15px 0px 15px 0px;
+    border-bottom: 1px solid #c2c1c1;
+    transition: all 0.3s;
+
+}
+.filter ul li a:hover{
+padding-left: 10px;
+transition: all 0.3s;
+}
+/* footer */
+.footer{
+    margin-top: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background: rgb(148, 222, 224);
+}
+.footer-content{
+    color: #2c2c2c;
+}
+.footer-content h3{
+    color: #242424;
 }
