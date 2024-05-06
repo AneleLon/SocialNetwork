@@ -1,18 +1,28 @@
-*{
+* {
     font-family: "Comfortaa", sans-serif;
-  }
-html,h1,h2,h3,h4,h5,h6{
+}
+
+html,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     color: #5c5b5b;
 }
-body{
+
+body {
     background: #f6f6f6;
 }
-a{
+
+a {
     text-decoration: none;
     color: inherit;
 }
-input{
-    padding:10px 12px;
+
+input {
+    padding: 10px 12px;
     display: block;
     width: 100%;
     border-radius: 10px;
@@ -22,38 +32,45 @@ input{
 
 /*Header*/
 
-header{
+header {
     background: #008484;
     height: 70px;
 }
-header *{
+
+header * {
     color: #ffffff;
 }
-header h1{
+
+header h1 {
     margin-top: 15px
 }
-header ul{
+
+header ul {
     margin: 0;
     padding: 0;
     list-style-type: none;
     float: right;
 }
-header ul li{
+
+header ul li {
     float: left;
     position: relative;
 }
-header ul li a{
+
+header ul li a {
     display: block;
     font-size: 1.2rem;
     text-decoration: none;
     padding: 20px;
 }
-header ul li a:hover{
+
+header ul li a:hover {
     background: #006669;
     transition: 0.5s;
-    color:#fff;
+    color: #fff;
 }
-header ul li ul{
+
+header ul li ul {
     position: absolute;
     top: 70px;
     right: 0px;
@@ -61,13 +78,16 @@ header ul li ul{
     display: none;
     z-index: 88888;
 }
-header ul li:hover ul{
+
+header ul li:hover ul {
     display: block;
 }
-header ul li ul li{
+
+header ul li ul li {
     width: 100%;
 }
-header ul li ul li a{
+
+header ul li ul li a {
     padding: 10px;
     background: white;
     color: #008489;
@@ -77,7 +97,7 @@ header ul li ul li a{
 main news
 */
 
-.post{
+.post {
     margin-top: 15px;
     background: #ffffff;
     border-style: solid;
@@ -86,12 +106,14 @@ main news
     border-color: #c2c1c1;
     padding: 20px;
 }
-.filter ul{
+
+.filter ul {
     margin: 0px;
     padding: 0px;
     list-style-type: none;
 }
-.section{
+
+.section {
     margin-top: 15px;
     background: #ffffff;
     border-style: solid;
@@ -100,27 +122,70 @@ main news
     border-color: #c2c1c1;
     padding: 20px;
 }
-.filter ul li a{
-    display:block;
+
+.filter ul li a {
+    display: block;
     padding: 15px 0px 15px 0px;
     border-bottom: 1px solid #c2c1c1;
     transition: all 0.3s;
 
 }
-.filter ul li a:hover{
-padding-left: 10px;
-transition: all 0.3s;
+
+.filter ul li a:hover {
+    padding-left: 10px;
+    transition: all 0.3s;
 }
-/* footer */
-.footer{
-    margin-top: 15px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    background: rgb(148, 222, 224);
+
+.username_post_comment {
+    font-size: 1rem;
 }
-.footer-content{
-    color: #2c2c2c;
+.post_comment{
+    margin-top: 5px;
+    background: #ffffff;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: #c2c1c1;
+    padding: 3px
 }
-.footer-content h3{
-    color: #242424;
+
+.checkboxlike {
+    display: none;
+}
+
+.labellike {
+    height: 25px;
+    width: 25px;
+    margin-top: 10px;
+}
+.checkboxcomment {
+    display: none;
+}
+
+.labelcomment {
+    height: 25px;
+    width: 25px;
+    margin-top: 10px;
+}
+/*
+моя страница
+*/
+.img_ava{
+width: 150px;
+height: 150px;
+}
+.checkboxSub {
+    display: none;
+}
+/*
+форм
+*/
+.reg_form h2{
+    text-align: center;
+    margin: 30px 0;
+}
+.reg_form a{
+    font-size: 1em;
+    text-decoration: none;
+    margin-left: 10px;
 }
