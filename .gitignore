@@ -1,6 +1,6 @@
 #Папки
-image/
-node_modules/
+/assets/image/
+
 
 #файлы
 package-lock.json
