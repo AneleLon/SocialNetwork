@@ -189,3 +189,8 @@ height: 150px;
     text-decoration: none;
     margin-left: 10px;
 }
+
+/* forms */
+form div.err{
+    color: red;
+}
