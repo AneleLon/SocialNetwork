@@ -65,7 +65,7 @@ include "app/controllers/users.php";
             <div class="w-100"></div>
             <div class="mb-3 col-10 col-md-4">
                 <button type="submit" class="btn btn-primary" name="submit-reg">Зарегистрироваться</button>
-                <a href="auto.php"> Авторизоваться </a>
+                <a href="<?php echo BASE_URL . "auto.php"; ?>"> Авторизоваться </a>
             </div>
         </form>
     </div>

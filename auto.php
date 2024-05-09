@@ -1,3 +1,7 @@
+<?php
+include "path.php";
+include "app/controllers/users.php";
+?>
 <!doctype html>
 <html lang="en">
 
@@ -31,21 +35,25 @@
             </div>
     </header>
     <div class="container reg_form">
-        <form class="row row justify-content-center" method="post" action="registration.html">
+        <form class="row row justify-content-center" method="post" action="auto.php">
             <h2 class="">Авторизация</h2>
             <div class="mb-3 col-10 col-md-4">
-                <label for="formGroupExampleInput" class="form-label">Введите ваш логин</label>
-                <input type="text" class="form-control" id="formGroupExampleInput">
+                <label for="formGroupExampleInput" class="form-label">Введите ваш username</label>
+                <input name="username" value="<?= $username ?>" type="text" class="form-control" id="formGroupExampleInput">
             </div>
             <div class="w-100"></div>
             <div class="mb-3 col-10 col-md-4">
                 <label for="exampleInputPassword1" class="form-label">Пароль</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <input name="password" type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="w-100"></div>
+            <div class="mb-3 col-10 col-md-4 err">
+                <p><?= $errMsg ?></p>
             </div>
             <div class="w-100"></div>
             <div class="mb-3 col-10 col-md-4">
-                <button type="submit" class="btn btn-primary">Авторизоваться</button>
-                <a href="registration.php">Зарегистрироваться</a>
+                <button type="submit" class="btn btn-primary" name="submit-log">Авторизоваться</button>
+                <a href="<?php echo BASE_URL . "registration.php"; ?>">Зарегистрироваться</a>
             </div>
            
         </form>
