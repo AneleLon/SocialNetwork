@@ -29,10 +29,11 @@ include "app/controllers/users.php";
             <div class="row">
                 <div class="col-2">
                     <h1>
-                        <a href="registration.php">AneleLon</a>
+                        <a href="<?php echo BASE_URL ?>">AneleLon</a>
                     </h1>
                 </div>
             </div>
+        </div>
     </header>
     <!--Форма регистрации-->
     <div class="container reg_form">
@@ -40,12 +41,12 @@ include "app/controllers/users.php";
             <h2 class="">Регистрация</h2>
             <div class="mb-3 col-10 col-md-4">
                 <label for="formGroupExampleInput" class="form-label">Введите ваш username</label>
-                <input name="username" value="<?=$username?>" type="text" class="form-control" id="formGroupExampleInput">
+                <input name="username" value="<?= $username ?>" type="text" class="form-control" id="formGroupExampleInput">
             </div>
             <div class="w-100"></div>
             <div class="mb-3 col-10 col-md-4">
                 <label for="exampleInputEmail1" class="form-label">Email</label>
-                <input name="email" value="<?=$email?>"type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input name="email" value="<?= $email ?>" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
             </div>
             <div class="w-100"></div>
             <div class="mb-3 col-10 col-md-4">
@@ -59,7 +60,7 @@ include "app/controllers/users.php";
             </div>
             <div class="w-100"></div>
             <div class="mb-3 col-10 col-md-4 err">
-                <p><?=$errMsg?></p>
+                <p><?= $errMsg ?></p>
             </div>
             <div class="w-100"></div>
             <div class="mb-3 col-10 col-md-4">
