@@ -2,14 +2,14 @@
 include "app/database/db.php";
 
 $errMsg = '';
-
+//авторизация
 function userAuth($user)
 {
     $_SESSION['id'] = $user[0]['id_users'];
     $_SESSION['username'] = $user[0]['username'];
     $_SESSION['admin'] = $user[0]['admin'];
     if ($_SESSION['admin']) {
-        header('Location: ' . BASE_URL . "admin/admin.php");
+        header('Location: ' . BASE_URL . "admin/posts/index.php");
     } else {
         header('Location: ' . BASE_URL);
     }
@@ -66,7 +66,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit-log'])) {
     } else {
         $existence = selectTable('users', ['username' => $username], 1);
         if (!empty($existence) && password_verify($pass, $existence[0]['password'])) {
-            //авторизация
             userAuth($existence);
         } else {
             $errMsg = "Почта либо пароль введены не верно";

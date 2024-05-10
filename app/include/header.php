@@ -20,28 +20,28 @@
                     </li>
                     <li>
                         <?php if (isset($_SESSION['id']) and $_SESSION['admin'] === 1) : ?>
-                            <a href="<?php echo BASE_URL . "userProfile.php"; ?>"><img width="24" height="24" src="assets/image/home.png" />
+                            <a href="<?php echo BASE_URL . "userProfile.php"; ?>"><img width="24" height="24" src="assets/image/users.png">
                                 <?php echo $_SESSION['username']; ?>
                             </a>
                             <ul>
                                 <li><a href="#">Редактировать личную страницу</a></li>
                                 <li><a href="#">Удалить страницу</a></li>
                                 <li><a href="<?php echo BASE_URL . "admin/admin.php"; ?>">Админ панель</a>
-                                <li><a href="#">Выход</a>
+                                <li><a href="<?php echo BASE_URL . "logout.php"; ?>"">Выход</a>
                                 </li>
                             </ul>
                         <?php elseif (isset($_SESSION['id']) and $_SESSION['admin'] === 0) : ?>
-                            <a href="<?php echo BASE_URL . "userProfile.php"; ?>"><img width="24" height="24" src="assets/image/home.png" />
+                            <a href="<?php echo BASE_URL . "userProfile.php"; ?>"><img width="24" height="24" src="assets/image/users.png">
                                 <?php echo $_SESSION['username']; ?>
                             </a>
                             <ul>
                                 <li><a href="#">Редактировать личную страницу</a></li>
                                 <li><a href="#">Удалить страницу</a></li>
-                                <li><a href="#">Выход</a>
+                                <li><a href="<?php echo BASE_URL . "logout.php"; ?>">Выход</a>
                                 </li>
                             </ul>
                         <?php else : ?>
-                            <a href="<?php echo BASE_URL . "auto.php"; ?>"><img width="24" height="24" src="assets/image/in.png" />
+                            <a href="<?php echo BASE_URL . "auto.php"; ?>"><img width="24" height="24" src="assets/image/in.png">
                                 Вход
                             </a>
                             <ul>
