@@ -26,7 +26,7 @@
                             <ul>
                                 <li><a href="#">Редактировать личную страницу</a></li>
                                 <li><a href="#">Удалить страницу</a></li>
-                                <li><a href="<?php echo BASE_URL . "admin/admin.php"; ?>">Админ панель</a>
+                                <li><a href="<?php echo BASE_URL . "admin/posts/index.php"; ?>">Админ панель</a>
                                 <li><a href="<?php echo BASE_URL . "logout.php"; ?>"">Выход</a>
                                 </li>
                             </ul>

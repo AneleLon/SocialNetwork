@@ -1,5 +1,5 @@
-<?php include 'path.php';
-include 'app/database/db.php';
+<?php include '../../path.php';
+include '../../app/database/db.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -13,7 +13,7 @@ include 'app/database/db.php';
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" integrity="sha384-dpuaG1suU0eT09tx5plTaGMLBsfDLzUCCUXOY2j/LSvXYuG6Bqs43ALlhIqAJVRb" crossorigin="anonymous">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/admin.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
@@ -21,24 +21,26 @@ include 'app/database/db.php';
 </head>
 
 <body>
-    <?php include("app/include/headerAdmin.php");
+    <?php include("../../app/include/headerAdmin.php");
     ?>
     <!--main-->
     <div class="container">
         <div class="container row">
             <!--оповещения-->
             <div class="col-md-3">
-                <?php include("app/include/alerts.php");
+                <?php include("../../app/include/alerts.php");
                 ?>
             </div>
             <!--Лента-->
             <div class="col-md-6">
-                <?php include("app/include/tapeBlock.php");
+                <?php include("../../app/include/addPosts.php");
+                ?>
+                <?php include("../../app/include/tapeBlock.php");
                 ?>
             </div>
             <!--поиск и фильтр-->
             <div class="sidebar col-md-3">
-                <?php include("app/include/searchAndFilter.php");
+                <?php include("../../app/include/searchAndFilter.php");
                 ?>
             </div>
         </div>

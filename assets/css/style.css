@@ -167,6 +167,12 @@ main news
     width: 25px;
     margin-top: 10px;
 }
+.edit{
+    margin-right: 10px;
+}
+.id_user{
+    font-size: 20px;
+}
 /*
 моя страница
 */
