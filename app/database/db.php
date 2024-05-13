@@ -132,3 +132,12 @@ function delete($table, $beingDelete, $name)
 
     dbCheckError($query);
 }
+function deleteLike($user, $post){
+    global $pdo;
+    $sql = "DELETE FROM likePost WHERE id_user = $user AND id_post = $post";
+
+    $query = $pdo->prepare($sql);
+    $query->execute();
+
+    dbCheckError($query);
+}

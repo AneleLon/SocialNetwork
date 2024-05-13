@@ -3,6 +3,9 @@ include '../../path.php';
 include '../../app/database/db.php';
 include "../../app/controllers/addOnePosts.php";
 include "../../app/controllers/tapeBlockControl.php";
+include "../../app/controllers/addOneComent.php";
+include "../../app/controllers/like.php";
+include "../../app/controllers/delCom.php";
 ?>
 <!doctype html>
 <html lang="en">

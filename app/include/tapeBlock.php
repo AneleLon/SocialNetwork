@@ -1,22 +1,21 @@
 <?php
-tt($tape);
-?>
-<?php
+$tape = selectTablePost();
+$userId = $_SESSION['id'];
 foreach ($tape as $key => $tapes) :
+    $postId = $tapes['id_post'];
+    $liked = selectTable('likePost', ['id_user' => $userId, 'id_post' => $postId], 'All'); //?
 ?>
     <div class="post row">
         <div class="d-flex justify-content-between">
             <h2>
                 <a href="#"><?= $tapes['username']; ?></a>
             </h2>
-
             <div class="d-flex">
                 <div class="mr-2 edit"><a href="#">редактировать</a></div>
                 <div class=""><a href="#">удалить</a></div>
             </div>
         </div>
         <i class="far fa-calendar"><?= $tapes['created']; ?></i>
-
         <div class="post_text">
             <p>
                 <?= $tapes['textPost']; ?>
@@ -29,57 +28,42 @@ foreach ($tape as $key => $tapes) :
                 </div>
             <?php endif; ?>
         </div>
-
-
         <div class="container">
             <div>
-                <input type="checkbox" id="like" class="checkboxlike">
-                <label for="like">
-                    <img id="likeImage" src="../../assets/image/like.png" class="labellike">
-                </label>
-                <input type="checkbox" id="comment" class="checkboxcomment">
-                <label for="comment">
+                <form action="index.php" method="post" class="d-inline">
+                    <input type="hidden" name="post_id" value="<?= $postId; ?>">
+                    <input type="hidden" name="like_action" value="like">
+                    <input type="checkbox" id="like<?= $postId; ?>" name="like" class="checkboxlike" <?= !empty($liked) ? 'checked' : '' ?>>
+                    <label for="like<?= $postId; ?>">
+                        <img id="likeImage<?= $postId; ?>" src="<?= !empty($liked) ? '../../assets/image/likeTrue.png' : '../../assets/image/like.png' ?>" class="labellike">
+                    </label>
+                </form>
+
+                <input type="checkbox" id="comment<?= $postId; ?>" class="checkboxcomment">
+                <label for="comment<?= $postId; ?>">
                     <img id="commentImage" src="../../assets/image/comment.png" class="labelcomment">
                 </label>
             </div>
         </div>
-        <div id="comments-container" style="display: none;">
-            <?php include("../../app/include/addComent.php");
-            ?>
-            <div class="post_comment row">
-                <h2>
-                    <a href="userProfile.html" class="username_post_comment">Фамилия Имя</a>
-                </h2>
-                <i class="far fa-calendar username_post_comment">Mar 11, 2019</i>
-                <div class="post_text">
-                    <p class="post-text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, totam natus sit
-                        iusto
-                        quis id, accusantium beatae corporis cum quam eius.
-                    </p>
-                </div>
-            </div>
+        <div id="comments-container<?= $postId; ?>" style="display: none;">
+            <?php include("../../app/include/addComent.php"); ?>
+            <?php include("../../app/include/comments.php"); ?>
         </div>
-
         <script>
-            const likeCheckbox = document.getElementById('like');
-            const likeImage = document.getElementById('likeImage');
-            const commentCheckbox = document.getElementById('comment');
-            const commentsContainer = document.getElementById('comments-container');
+            const likeCheckbox<?= $postId; ?> = document.getElementById('like<?= $postId; ?>');
+            const likeImage<?= $postId; ?> = document.getElementById('likeImage<?= $postId; ?>');
+            const commentCheckbox<?= $postId; ?> = document.getElementById('comment<?= $postId; ?>');
+            const commentsContainer<?= $postId; ?> = document.getElementById('comments-container<?= $postId; ?>');
 
-            likeCheckbox.addEventListener('change', () => {
-                if (likeCheckbox.checked) {
-                    likeImage.src = '../../assets/image/likeTrue.png';
-                } else {
-                    likeImage.src = '../../assets/image/like.png';
-                }
+            likeCheckbox<?= $postId; ?>.addEventListener('change', () => {
+                likeCheckbox<?= $postId; ?>.parentNode.submit();
             });
 
-            commentCheckbox.addEventListener('change', () => {
-                if (commentCheckbox.checked) {
-                    commentsContainer.style.display = 'block';
+            commentCheckbox<?= $postId; ?>.addEventListener('change', () => {
+                if (commentCheckbox<?= $postId; ?>.checked) {
+                    commentsContainer<?= $postId; ?>.style.display = 'block';
                 } else {
-                    commentsContainer.style.display = 'none';
+                    commentsContainer<?= $postId; ?>.style.display = 'none';
                 }
             });
         </script>
