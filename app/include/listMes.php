@@ -1,5 +1,5 @@
 <div class="container edit-user post row">
-    <form class="row row justify-content-center" method="post" action="registration.php">
+    <form class="row justify-content-center" method="post" action="registration.php">
         <div class="row">
             <div class="mb-3">
                 <label for="formGroupExampleInput" class="form-label">idFrom</label>

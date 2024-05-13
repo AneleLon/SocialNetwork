@@ -25,7 +25,20 @@ function dbCheckError($query)
     }
     return true;
 }
+// Все посты и id создателя
+function selectTablePost(){    
+    global $pdo;
 
+    $sql = "SELECT p.*, u.username
+    FROM post p
+    JOIN users u ON p.user_id_post = u.id_users";
+
+
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    dbCheckError($query);
+    return $query->fetchAll();
+}
 // Запрос на получение данных одной таблицы $volume = All или любое нужное число
 function selectTable($table, $params = [], $volume)
 {

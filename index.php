@@ -1,5 +1,7 @@
-<?php include 'path.php';
+<?php
+include 'path.php';
 include 'app/database/db.php';
+include "app/controllers/addOnePosts.php";
 ?>
 <!doctype html>
 <html lang="en">
@@ -33,6 +35,8 @@ include 'app/database/db.php';
             </div>
             <!--Лента-->
             <div class="col-md-6">
+                <?php include("app/include/addPosts.php");
+                ?>
                 <?php include("app/include/tapeBlock.php");
                 ?>
             </div>
