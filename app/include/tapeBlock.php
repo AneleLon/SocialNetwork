@@ -3,7 +3,14 @@ $tape = selectTablePost();
 $userId = $_SESSION['id'];
 foreach ($tape as $key => $tapes) :
     $postId = $tapes['id_post'];
-    $liked = selectTable('likePost', ['id_user' => $userId, 'id_post' => $postId], 'All'); //?
+
+    // Получение количества лайков
+    $likes_count = getLikesCount($postId);
+
+    // Получение количества комментариев
+    $comments_count = getCommentsCount($postId);
+
+    $liked = selectTable('likePost', ['id_user' => $userId, 'id_post' => $postId], 'All');
 ?>
     <div class="post row">
         <div class="d-flex justify-content-between">
@@ -11,8 +18,8 @@ foreach ($tape as $key => $tapes) :
                 <a href="#"><?= $tapes['username']; ?></a>
             </h2>
             <div class="d-flex">
-                <div class="mr-2 edit"><a href="#">редактировать</a></div>
-                <div class=""><a href="#">удалить</a></div>
+                <div class="mr-2 edit"><a href="<?= BASE_URL . "admin/posts/edit.php?edit=" . $postId ?>">edit</a></div>
+                <div class=""><a href="?deletePost=<?= $postId ?>">delete</a></div>
             </div>
         </div>
         <i class="far fa-calendar"><?= $tapes['created']; ?></i>
@@ -31,6 +38,8 @@ foreach ($tape as $key => $tapes) :
         <div class="container">
             <div>
                 <form action="index.php" method="post" class="d-inline">
+                    <p>Лайки: <?= $likes_count ?></p>
+                    <p> Комментарии: <?= $comments_count ?></p>
                     <input type="hidden" name="post_id" value="<?= $postId; ?>">
                     <input type="hidden" name="like_action" value="like">
                     <input type="checkbox" id="like<?= $postId; ?>" name="like" class="checkboxlike" <?= !empty($liked) ? 'checked' : '' ?>>
@@ -38,7 +47,6 @@ foreach ($tape as $key => $tapes) :
                         <img id="likeImage<?= $postId; ?>" src="<?= !empty($liked) ? '../../assets/image/likeTrue.png' : '../../assets/image/like.png' ?>" class="labellike">
                     </label>
                 </form>
-
                 <input type="checkbox" id="comment<?= $postId; ?>" class="checkboxcomment">
                 <label for="comment<?= $postId; ?>">
                     <img id="commentImage" src="../../assets/image/comment.png" class="labelcomment">
@@ -68,4 +76,5 @@ foreach ($tape as $key => $tapes) :
             });
         </script>
     </div>
+
 <?php endforeach; ?>

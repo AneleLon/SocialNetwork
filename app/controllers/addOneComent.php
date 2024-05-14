@@ -12,6 +12,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitAddCom'])) {
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 } else {
     $textComment = '';
-    $userId = $_SESSION['id'];
-    $postId = $_POST['post_id'];
 }

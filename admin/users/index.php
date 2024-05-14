@@ -1,5 +1,10 @@
 <?php include '../../path.php';
 include '../../app/database/db.php';
+include "../../app/controllers/get_user_data.php";
+include "../../app/controllers/updateUser.php";
+include "../../app/controllers/deleteUser.php";
+include "../../app/controllers/sub.php";
+include "../../app/controllers/unsub.php";
 ?>
 <!doctype html>
 <html lang="en">

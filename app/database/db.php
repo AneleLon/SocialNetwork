@@ -25,8 +25,25 @@ function dbCheckError($query)
     }
     return true;
 }
+function getLikesCount($postId) {
+    global $pdo;
+    $sql = "SELECT COUNT(*) AS likes_count FROM likePost WHERE id_post = ?";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$postId]);
+    return $stmt->fetchColumn();
+}
+
+function getCommentsCount($postId) {
+    global $pdo;
+    $sql = "SELECT COUNT(*) AS comments_count FROM comment WHERE id_post = ?";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$postId]);
+    return $stmt->fetchColumn();
+}
+
 // Все посты и id создателя
-function selectTablePost(){    
+function selectTablePost()
+{
     global $pdo;
 
     $sql = "SELECT p.*, u.username
@@ -36,6 +53,45 @@ function selectTablePost(){
 
     $query = $pdo->prepare($sql);
     $query->execute();
+    dbCheckError($query);
+    return $query->fetchAll();
+}
+//Все записи, без параметров
+function selectAll($table){
+    global $pdo;
+    $sql = "SELECT * FROM $table";
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    dbCheckError($query);
+    return $query->fetchAll();
+}
+function selectUserAndStatusSub($table, $currentUserId) {
+    global $pdo;
+
+    $sql = "
+        SELECT u.*, 
+               EXISTS(SELECT 1 FROM subscriber WHERE idSub = :currentUserId AND id = u.id_users) as is_subscribed
+        FROM $table u";
+
+    $query = $pdo->prepare($sql);
+    $query->execute(['currentUserId' => $currentUserId]);
+    dbCheckError($query);
+    return $query->fetchAll();
+}
+function selectSubscribedUsers($table, $currentUserId) {
+    global $pdo;
+
+    $sql = "
+        SELECT u.*
+        FROM $table u
+        WHERE EXISTS (
+            SELECT 1 
+            FROM subscriber 
+            WHERE idSub = :currentUserId AND id = u.id_users
+        )";
+
+    $query = $pdo->prepare($sql);
+    $query->execute(['currentUserId' => $currentUserId]);
     dbCheckError($query);
     return $query->fetchAll();
 }
@@ -69,6 +125,7 @@ function selectTable($table, $params = [], $volume)
 
     dbCheckError($query);
 
+
     return $query->fetchAll();
 }
 
@@ -99,7 +156,7 @@ function insert($table, $params)
     return $pdo->lastInsertId();
 }
 
-//обновление строки в таблице name - название id в таблице, change - номер id
+//обновление строки в таблице, name - название id в таблице, change - номер id
 function update($table, $change, $name, $params)
 {
     global $pdo;
@@ -132,7 +189,18 @@ function delete($table, $beingDelete, $name)
 
     dbCheckError($query);
 }
-function deleteLike($user, $post){
+function deleteSub($id, $idSub)
+{
+    global $pdo;
+    $sql = "DELETE FROM subscriber WHERE id = $id AND idSub = $idSub";
+
+    $query = $pdo->prepare($sql);
+    $query->execute();
+
+    dbCheckError($query);
+}
+function deleteLike($user, $post)
+{
     global $pdo;
     $sql = "DELETE FROM likePost WHERE id_user = $user AND id_post = $post";
 
@@ -140,4 +208,48 @@ function deleteLike($user, $post){
     $query->execute();
 
     dbCheckError($query);
+}
+//какскадное удаление users ручками
+function deleteUser($userId) {
+    global $pdo;
+
+    try {
+        $pdo->beginTransaction();
+
+        // Удаление записей из таблицы `subscriber`
+        $sql = "DELETE FROM `subscriber` WHERE `id` = :userId OR `idSub` = :userId";
+        $query = $pdo->prepare($sql);
+        $query->execute(['userId' => $userId]);
+
+        // Удаление записей из таблицы `likePost`
+        $sql = "DELETE FROM `likePost` WHERE `id_user` = :userId";
+        $query = $pdo->prepare($sql);
+        $query->execute(['userId' => $userId]);
+
+        // Удаление записей из таблицы `comment`
+        $sql = "DELETE FROM `comment` WHERE `id_user` = :userId";
+        $query = $pdo->prepare($sql);
+        $query->execute(['userId' => $userId]);
+
+        // Удаление записей из таблицы `post`
+        $sql = "DELETE FROM `post` WHERE `user_id_post` = :userId";
+        $query = $pdo->prepare($sql);
+        $query->execute(['userId' => $userId]);
+
+        // Удаление записей из таблицы `message`
+        $sql = "DELETE FROM `message` WHERE `idFrom` = :userId OR `idIn` = :userId";
+        $query = $pdo->prepare($sql);
+        $query->execute(['userId' => $userId]);
+
+        // Удаление пользователя из таблицы `users`
+        $sql = "DELETE FROM `users` WHERE `id_users` = :userId";
+        $query = $pdo->prepare($sql);
+        $query->execute(['userId' => $userId]);
+
+        $pdo->commit();
+
+    } catch (PDOException $e) {
+        $pdo->rollBack();
+        echo "Ошибка при удалении пользователя: " . $e->getMessage();
+    }
 }

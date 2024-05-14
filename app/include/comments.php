@@ -14,9 +14,11 @@ foreach ($comments as $comment) :
                 <?= $comment['text_comment']; ?>
             </p>
         </div>
+        <?php if ($_SESSION['username'] === $user['username']) : ?>
         <form action="index.php" method="post">
-            <input type="hidden" name="comment_id" value="<?= $postId;?>">
+            <input type="hidden" name="comment_id" value="<?= $comment['id_comment']; ?>">
             <button type="submit">Удалить</button>
         </form>
+        <?php endif;?>
     </div>
 <?php endforeach; ?>
