@@ -2,5 +2,10 @@
 if (isset($_GET['delete'])) {
   $userId = $_GET['delete'];
   deleteUser($userId);
-  header('Location: '. $_SERVER['HTTP_REFERER']);
+  $current_url = $_SERVER['REQUEST_URI'];
+  if (preg_match('/\/SocialNetwork\/editUserProfile\.php/', $current_url)) {
+    header('Location: ' . BASE_URL . "auto.php");
+  } else {
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+  }
 }

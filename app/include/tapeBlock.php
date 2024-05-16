@@ -1,6 +1,11 @@
 <?php
-$tape = selectTablePost();
 $userId = $_SESSION['id'];
+$current_url = $_SERVER['REQUEST_URI'];
+if ($current_url == '/SocialNetwork/userProfile.php') {
+    $tape = selectTablePostUser($userId);
+  } else {
+    $tape = selectTablePost();
+  }
 foreach ($tape as $key => $tapes) :
     $postId = $tapes['id_post'];
 

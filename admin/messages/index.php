@@ -1,5 +1,6 @@
 <?php include '../../path.php';
 include '../../app/database/db.php';
+/* include "../../app/controllers"; */
 ?>
 <!doctype html>
 <html lang="en">
@@ -26,7 +27,6 @@ include '../../app/database/db.php';
     <!--main-->
     <div class="container">
         <div class="container row">
-            <!--Лента-->
             <div class="col-md-8">
                 <?php include("../../app/include/listMes.php");
                 ?>
@@ -39,19 +39,6 @@ include '../../app/database/db.php';
         </div>
     </div>
 
-
-
-
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-    -->
 </body>
 
 </html>

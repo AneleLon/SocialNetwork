@@ -1,3 +1,8 @@
+<?php
+if (isset($_GET['edit'])) {
+  $userId = $_GET['edit'];
+  $user = selectTable('users', ['id_users' => $userId], 1)[0];
+}?>
 <div class="container edit-user post row">
     <form class="row row justify-content-center" method="post" action="index.php">
         <div class="row mb-3 col-10 col-md-6">

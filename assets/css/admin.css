@@ -176,3 +176,7 @@ main news
 .edit-user{
     padding-top: 10px;
 }
+/* сообщения */
+ul {
+    list-style-type: none;
+}

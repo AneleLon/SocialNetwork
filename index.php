@@ -2,6 +2,7 @@
 include 'path.php';
 include 'app/database/db.php';
 include "app/controllers/addOnePosts.php";
+include "app/controllers/tapeBlockControl.php";
 ?>
 <!doctype html>
 <html lang="en">

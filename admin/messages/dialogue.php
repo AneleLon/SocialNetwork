@@ -1,12 +1,5 @@
-<?php
-include '../../path.php';
+<?php include '../../path.php';
 include '../../app/database/db.php';
-include "../../app/controllers/addOnePosts.php";
-include "../../app/controllers/tapeBlockControl.php";
-include "../../app/controllers/addOneComent.php";
-include "../../app/controllers/like.php";
-include "../../app/controllers/delCom.php";
-include "../../app/controllers/deletePost.php";
 ?>
 <!doctype html>
 <html lang="en">
@@ -33,16 +26,8 @@ include "../../app/controllers/deletePost.php";
     <!--main-->
     <div class="container">
         <div class="container row">
-            <!--оповещения-->
-            <div class="col-md-3">
-                <?php include("../../app/include/alerts.php");
-                ?>
-            </div>
-            <!--Лента-->
-            <div class="col-md-6">
-                <?php include("../../app/include/addPosts.php");
-                ?>
-                <?php include("../../app/include/tapeBlock.php");
+            <div class="col-md-8">
+                <?php include("../../app/include/dialog.php");
                 ?>
             </div>
             <!--поиск и фильтр-->
@@ -52,8 +37,6 @@ include "../../app/controllers/deletePost.php";
             </div>
         </div>
     </div>
-
-
 
 </body>
 

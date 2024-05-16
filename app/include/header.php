@@ -24,32 +24,28 @@
                                 <?php echo $_SESSION['username']; ?>
                             </a>
                             <ul>
-                                <li><a href="#">Редактировать личную страницу</a></li>
-                                <li><a href="#">Удалить страницу</a></li>
+                                <li><a href="<?= BASE_URL . "editUserProfile.php?edit=" . $_SESSION['id'] ?>">Редактировать личную страницу</a></li>
                                 <li><a href="<?php echo BASE_URL . "admin/posts/index.php"; ?>">Админ панель</a>
                                 <li><a href="<?php echo BASE_URL . "logout.php"; ?>"">Выход</a>
                                 </li>
                             </ul>
                         <?php elseif (isset($_SESSION['id']) and $_SESSION['admin'] === 0) : ?>
-                            <a href="<?php echo BASE_URL . "userProfile.php"; ?>"><img width="24" height="24" src="assets/image/users.png">
-                                <?php echo $_SESSION['username']; ?>
-                            </a>
-                            <ul>
-                                <li><a href="#">Редактировать личную страницу</a></li>
-                                <li><a href="#">Удалить страницу</a></li>
-                                <li><a href="<?php echo BASE_URL . "logout.php"; ?>">Выход</a>
+                            <a href=" <?php echo BASE_URL . "userProfile.php"; ?>"><img width="24" height="24" src="assets/image/users.png">
+                                        <?php echo $_SESSION['username']; ?></a>
+                                    <ul>
+                                        <li><a href="<?= BASE_URL . "editUserProfile.php?edit=" . $_SESSION['id'] ?>">Редактировать личную страницу</a></li>
+                                        <li><a href="<?php echo BASE_URL . "logout.php"; ?>">Выход</a>
+                                        </li>
+                                    </ul>
+                                <?php else : ?>
+                                    <a href="<?php echo BASE_URL . "auto.php"; ?>"><img width="24" height="24" src="assets/image/in.png">
+                                        Вход</a>
+                                    <ul>
+                                        <li><a href="<?php echo BASE_URL . "registration.php"; ?>">Регистрация</a></li>
+                                    </ul>
+                                <?php endif ?>
                                 </li>
                             </ul>
-                        <?php else : ?>
-                            <a href="<?php echo BASE_URL . "auto.php"; ?>"><img width="24" height="24" src="assets/image/in.png">
-                                Вход
-                            </a>
-                            <ul>
-                                <li><a href="<?php echo BASE_URL . "registration.php"; ?>">Регистрация</a></li>
-                            </ul>
-                        <?php endif ?>
-                    </li>
-                </ul>
             </nav>
         </div>
     </div>
