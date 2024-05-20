@@ -17,10 +17,9 @@
                     <li><a href="#"><img width="24" height="24" src="assets/image/users.png" />
                             Подписки</a>
                     </li>
-                    </li>
                     <li>
                         <?php if (isset($_SESSION['id']) and $_SESSION['admin'] === 1) : ?>
-                            <a href="<?php echo BASE_URL . "userProfile.php"; ?>"><img width="24" height="24" src="assets/image/users.png">
+                            <a href="<?php echo BASE_URL . "userProfile.php?id=" . $_SESSION['id']; ?>"><img width="24" height="24" src="assets/image/users.png">
                                 <?php echo $_SESSION['username']; ?>
                             </a>
                             <ul>
@@ -30,7 +29,7 @@
                                 </li>
                             </ul>
                         <?php elseif (isset($_SESSION['id']) and $_SESSION['admin'] === 0) : ?>
-                            <a href=" <?php echo BASE_URL . "userProfile.php"; ?>"><img width="24" height="24" src="assets/image/users.png">
+                            <a href=" <?php echo BASE_URL . "userProfile.php?id=" . $_SESSION['id']; ?>"><img width="24" height="24" src="assets/image/users.png">
                                         <?php echo $_SESSION['username']; ?></a>
                                     <ul>
                                         <li><a href="<?= BASE_URL . "editUserProfile.php?edit=" . $_SESSION['id'] ?>">Редактировать личную страницу</a></li>

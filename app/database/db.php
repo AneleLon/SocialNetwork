@@ -94,24 +94,89 @@ function getCommentsCount($postId)
     return $stmt->fetchColumn();
 }
 // Все посты и id создателя
-function selectTablePost()
+function selectTablePost($userId, $order = "new")
 {
     global $pdo;
 
-    $sql = "SELECT p.*, u.username
-    FROM post p
-    JOIN users u ON p.user_id_post = u.id_users";
+    $sql = "
+        SELECT p.*, u.username, 
+               CASE 
+                   WHEN EXISTS (SELECT 1 FROM subscriber WHERE idSub = :userId AND id = p.user_id_post) 
+                   THEN 1 
+                   ELSE 0 
+               END AS is_subscribed
+        FROM post p
+        JOIN users u ON p.user_id_post = u.id_users
+        ORDER BY 
+            CASE 
+                WHEN EXISTS (SELECT 1 FROM subscriber WHERE idSub = :userId AND id = p.user_id_post) 
+                THEN 0  -- Подписанные посты первыми
+                ELSE 1  -- Остальные посты
+            END,
+            p.created " . ($order === 'new' ? ' DESC' : ' ASC');
 
+    $query = $pdo->prepare($sql);
+    $query->bindValue(':userId', $userId, PDO::PARAM_INT);
+    $query->execute();
+    dbCheckError($query);
+    return $query->fetchAll();
+}
+// баг - при 0 выдаёт всё
+function searchTablePost($searchQuery)
+{
+    global $pdo;
+
+    $sql = "
+        SELECT 
+            p.*, 
+            u.username
+        FROM 
+            post p
+        JOIN 
+            users u ON p.user_id_post = u.id_users
+        LEFT JOIN 
+            comment c ON p.id_post = c.id_post
+        WHERE 
+            (
+                p.textPost LIKE :searchQuery
+                OR u.username LIKE :searchQuery
+                OR c.text_comment LIKE :searchQuery
+            )
+        ORDER BY 
+            CASE 
+                WHEN p.textPost LIKE :searchQuery THEN 1
+                WHEN u.username LIKE :searchQuery THEN 2
+                WHEN c.text_comment LIKE :searchQuery THEN 2
+                ELSE 4
+            END, -- Приоритет по тексту, username, комментариям
+            p.created DESC";
+
+    $query = $pdo->prepare($sql);
+    $query->bindValue(':searchQuery', '%' . $searchQuery . '%', PDO::PARAM_STR); // Используем '%' для поиска подстроки
+    $query->execute();
+    dbCheckError($query);
+    return $query->fetchAll();
+}
+
+function selectTablePostByLikes($order = 'desc')
+{
+    global $pdo;
+
+    $sql = "
+        SELECT p.*, u.username
+        FROM post p
+        JOIN users u ON p.user_id_post = u.id_users
+        ORDER BY p.likes " . ($order === 'desc' ? 'DESC' : 'ASC');
 
     $query = $pdo->prepare($sql);
     $query->execute();
     dbCheckError($query);
     return $query->fetchAll();
 }
+
 function selectTablePostUser($userId)
 {
     global $pdo;
-    $userId = $_SESSION['id'];
     $sql = "SELECT p.*, u.username
     FROM post p
     JOIN users u ON p.user_id_post = u.id_users

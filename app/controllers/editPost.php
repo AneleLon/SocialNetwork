@@ -15,7 +15,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editPost'])){
         ];
     }
         update('post',$id,'id_post',$editPost);
-        header('Location: ' . BASE_URL . "admin/posts/index.php");
+        if ($_SESSION['admin'] == 1){
+        header('Location: ' . BASE_URL . "admin/posts/index.php");}
+        else{
+            header('Location: ' . BASE_URL );
+        }
 
 }else{
     //проверку надо бы сделать

@@ -1,17 +1,14 @@
 <?php
 $userId = $_SESSION['id'];
-$current_url = $_SERVER['REQUEST_URI'];
-if ($current_url == '/SocialNetwork/userProfile.php') {
-    $tape = selectTablePostUser($userId);
-  } else {
-    $tape = selectTablePost();
-  }
+
+if (strpos($_SERVER['REQUEST_URI'], 'admin') !== false){
+    $pathImage ="../../" ;
+}else{
+    $pathImage ="";
+}
+
 foreach ($tape as $key => $tapes) :
     $postId = $tapes['id_post'];
-
-    // Получение количества лайков
-    $likes_count = getLikesCount($postId);
-
     // Получение количества комментариев
     $comments_count = getCommentsCount($postId);
 
@@ -20,12 +17,18 @@ foreach ($tape as $key => $tapes) :
     <div class="post row">
         <div class="d-flex justify-content-between">
             <h2>
-                <a href="#"><?= $tapes['username']; ?></a>
+                <a href="<?php echo BASE_URL . "userProfile.php?id=" .$tapes['user_id_post'] ; ?>"><?= $tapes['username']; ?></a>
             </h2>
-            <div class="d-flex">
-                <div class="mr-2 edit"><a href="<?= BASE_URL . "admin/posts/edit.php?edit=" . $postId ?>">edit</a></div>
-                <div class=""><a href="?deletePost=<?= $postId ?>">delete</a></div>
-            </div>
+            <?php if ($tapes['user_id_post'] == $userId or $_SESSION['admin'] == 1) : ?>
+                <div class="d-flex">
+                    <?php if ($_SESSION['admin'] == 1): ?>
+                    <div class="mr-2 edit"><a href="<?= BASE_URL . "admin/posts/edit.php?edit=" . $postId ?>">edit</a></div>
+                    <?php else: ?>
+                    <div class="mr-2 edit"><a href="<?= BASE_URL . "editpost.php?edit=" . $postId ?>">edit</a></div> 
+                    <?php endif;?>   
+                    <div class=""><a href="?deletePost=<?= $postId ?>">delete</a></div>
+                </div>
+            <?php endif; ?>
         </div>
         <i class="far fa-calendar"><?= $tapes['created']; ?></i>
         <div class="post_text">
@@ -36,26 +39,29 @@ foreach ($tape as $key => $tapes) :
         <div class="container">
             <?php if (!empty($tapes['image'])) : ?>
                 <div class="img">
-                    <img src="../../assets/imageuser/<?= $tapes['image']; ?>" alt="" class="img-thumbnail">
+                        <img src="<?=$pathImage;?>assets/imageuser/<?= $tapes['image']; ?>" alt="" class="img-thumbnail">
                 </div>
             <?php endif; ?>
+
         </div>
         <div class="container">
             <div>
-                <form action="index.php" method="post" class="d-inline">
-                    <p>Лайки: <?= $likes_count ?></p>
-                    <p> Комментарии: <?= $comments_count ?></p>
-                    <input type="hidden" name="post_id" value="<?= $postId; ?>">
-                    <input type="hidden" name="like_action" value="like">
-                    <input type="checkbox" id="like<?= $postId; ?>" name="like" class="checkboxlike" <?= !empty($liked) ? 'checked' : '' ?>>
-                    <label for="like<?= $postId; ?>">
-                        <img id="likeImage<?= $postId; ?>" src="<?= !empty($liked) ? '../../assets/image/likeTrue.png' : '../../assets/image/like.png' ?>" class="labellike">
-                    </label>
-                </form>
-                <input type="checkbox" id="comment<?= $postId; ?>" class="checkboxcomment">
-                <label for="comment<?= $postId; ?>">
-                    <img id="commentImage" src="../../assets/image/comment.png" class="labelcomment">
-                </label>
+                <form action="index.php" method="post" class="d-inline-flex align-items-center">           
+                        <p class="mr-2"><?= $tapes['likes'];  ?></p>
+                        <input type="hidden" name="post_id" value="<?= $postId; ?>">
+                        <input type="hidden" name="like_action" value="like">
+                        <input type="checkbox" id="like<?= $postId; ?>" name="like" class="checkboxlike" <?= !empty($liked) ? 'checked' : '' ?>>
+                        <label for="like<?= $postId; ?>">
+                            <img id="likeImage<?= $postId; ?>" src="<?= !empty($liked) ? $pathImage . "assets/image/likeTrue.png" : $pathImage . "assets/image/like.png" ?>" class="labellike">
+                        </label>
+                    </form>
+                    <div class="d-inline-flex align-items-center ml-3">
+                        <p class="mr-2"><?= $comments_count ?></p>
+                        <input type="checkbox" id="comment<?= $postId; ?>" class="checkboxcomment">
+                        <label for="comment<?= $postId; ?>">
+                            <img id="commentImage" src="<?=$pathImage;?>assets/image/comment.png" class="labelcomment">
+                        </label>
+                    </div>
             </div>
         </div>
         <div id="comments-container<?= $postId; ?>" style="display: none;">

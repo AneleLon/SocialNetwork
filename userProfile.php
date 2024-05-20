@@ -1,7 +1,8 @@
 <?php
 include "path.php";
 include 'app/database/db.php';
-$info = selectTable('users', ['id_users' => $_SESSION['id']], 1)[0];
+include "app/controllers/tapeBlockControl.php";
+$info = selectTable('users', ['id_users' => $_GET['id']], 1)[0];
 
 ?>
 <!doctype html>
