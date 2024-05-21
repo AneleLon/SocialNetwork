@@ -2,8 +2,10 @@
 $userId = $_GET['id'];
 $current_url = $_SERVER['REQUEST_URI'];
 $filtet = $_GET['filter'];
-if (!empty($userId )) {
-    $tape = selectTablePostUser($userId );
+if (!empty($userId) and !empty($_GET['search-profile'])) {
+    $tape = searchTablePostUser($_GET['search-profile'], $userId);
+} elseif (!empty($userId)) { //на странице пользователя
+    $tape = selectTablePostUser($userId);
 } else {
     if (!empty($_GET['search-term'])) {
         $tape = searchTablePost($_GET['search-term']);

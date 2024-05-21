@@ -50,7 +50,6 @@ if (isset($_GET['edit'])) {
     <div class="col-2">Admin</div>
 </div>
 <?php
-$usersAll = selectUserAndStatusSub('users', $_SESSION['id']);
 foreach ($usersAll as $key => $user) :
 ?>
     <?php if ($user['id_users'] !== $_SESSION['id']) : ?>

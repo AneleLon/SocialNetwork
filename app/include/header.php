@@ -14,8 +14,10 @@
                     <li><a href="#"><img width="24" height="24" src="assets/image/message.png" />
                             Сообщения</a>
                     </li>
-                    <li><a href="#"><img width="24" height="24" src="assets/image/users.png" />
-                            Подписки</a>
+                    <li><a href="<?php echo BASE_URL . "users.php"; ?>"><img width="24" height="24" src="assets/image/users.png">
+                                Пользователи</a>
+                    <li><a href="<?php echo BASE_URL . "subs.php" ?>"><img width="24" height="24" src="assets/image/sub.png">
+                                Подписки</a>
                     </li>
                     <li>
                         <?php if (isset($_SESSION['id']) and $_SESSION['admin'] === 1) : ?>

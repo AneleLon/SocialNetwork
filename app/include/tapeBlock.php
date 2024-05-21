@@ -65,8 +65,8 @@ foreach ($tape as $key => $tapes) :
             </div>
         </div>
         <div id="comments-container<?= $postId; ?>" style="display: none;">
-            <?php include("../../app/include/addComent.php"); ?>
-            <?php include("../../app/include/comments.php"); ?>
+            <?php include($pathImage . "app/include/addComent.php"); ?>
+            <?php include($pathImage . "app/include/comments.php"); ?>
         </div>
         <script>
             const likeCheckbox<?= $postId; ?> = document.getElementById('like<?= $postId; ?>');

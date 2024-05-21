@@ -10,7 +10,7 @@
                 <?php if (isset($_SESSION['id'])) : ?>
                     <ul>
                         <li>
-                            <a href="<?php echo BASE_URL . "userProfile.php"; ?>"><img width="24" height="24" src="../../assets/image/admin.png">
+                            <a href="<?php echo BASE_URL . "userProfile.php?id=" . $_SESSION['id']; ?>"><img width="24" height="24" src="../../assets/image/admin.png">
                                 <?php echo $_SESSION['username']; ?>
                             </a>
                         </li>
@@ -20,11 +20,11 @@
                         <li><a href="<?php echo BASE_URL . "admin/posts/index.php"; ?>"><img width="24" height="24" src="../../assets/image/news.png">
                                 Посты</a>
                         </li>
-                        <li><a href="<?php echo BASE_URL . "admin/subs/index.php"?>"><img width="24" height="24" src="../../assets/image/sub.png">
+                        <li><a href="<?php echo BASE_URL . "admin/subs/index.php" ?>"><img width="24" height="24" src="../../assets/image/sub.png">
                                 Подписки</a>
                         </li>
-                        <li><a href="<?php echo BASE_URL . "admin/messages/index.php"?>"><img width="24" height="24" src="../../assets/image/message.png">
-                            Сообщения</a>
+                        <li><a href="<?php echo BASE_URL . "admin/messages/index.php" ?>"><img width="24" height="24" src="../../assets/image/message.png">
+                                Сообщения</a>
                         </li>
                         <li><a href="<?php echo BASE_URL . "logout.php"; ?>"">Выход</a>
                     </li>

@@ -43,7 +43,8 @@ function getLatestMessagesWithUsers($userId)
 
     return $query->fetchAll();
 }
-function getDialogueMessages($userId1, $userId2) {
+function getDialogueMessages($userId1, $userId2)
+{
     global $pdo;
 
     $sql = "SELECT 
@@ -121,6 +122,61 @@ function selectTablePost($userId, $order = "new")
     dbCheckError($query);
     return $query->fetchAll();
 }
+function getSubscriberCount($userId)
+{
+    global $pdo;
+
+    $sql = "SELECT COUNT(*) FROM subscriber WHERE id = :userId";
+    $query = $pdo->prepare($sql);
+    $query->execute(['userId' => $userId]);
+    dbCheckError($query);
+    return $query->fetchColumn();
+}
+function getSubscriptionCount($userId)
+{
+    global $pdo;
+
+    $sql = "SELECT COUNT(*) FROM subscriber WHERE idSub = :userId";
+    $query = $pdo->prepare($sql);
+    $query->execute(['userId' => $userId]);
+    dbCheckError($query);
+    return $query->fetchColumn();
+}
+function searchTablePostUser($searchQuery, $userId)
+{
+    global $pdo;
+
+    $sql = "
+        SELECT 
+            p.*, 
+            u.username
+        FROM 
+            post p
+        JOIN 
+            users u ON p.user_id_post = u.id_users
+        LEFT JOIN 
+            comment c ON p.id_post = c.id_post
+        WHERE 
+            (
+                p.textPost LIKE :searchQuery
+                OR c.text_comment LIKE :searchQuery
+            )
+            AND p.user_id_post = :userId
+        ORDER BY 
+            CASE 
+                WHEN p.textPost LIKE :searchQuery THEN 1
+                WHEN c.text_comment LIKE :searchQuery THEN 2
+                ELSE 4
+            END,
+            p.created DESC";
+
+    $query = $pdo->prepare($sql);
+    $query->bindValue(':searchQuery', '%' . $searchQuery . '%', PDO::PARAM_STR);
+    $query->bindValue(':userId', $userId, PDO::PARAM_INT);
+    $query->execute();
+    dbCheckError($query);
+    return $query->fetchAll();
+}
 // баг - при 0 выдаёт всё
 function searchTablePost($searchQuery)
 {
@@ -139,20 +195,18 @@ function searchTablePost($searchQuery)
         WHERE 
             (
                 p.textPost LIKE :searchQuery
-                OR u.username LIKE :searchQuery
                 OR c.text_comment LIKE :searchQuery
             )
         ORDER BY 
             CASE 
                 WHEN p.textPost LIKE :searchQuery THEN 1
-                WHEN u.username LIKE :searchQuery THEN 2
                 WHEN c.text_comment LIKE :searchQuery THEN 2
                 ELSE 4
-            END, -- Приоритет по тексту, username, комментариям
+            END,
             p.created DESC";
 
     $query = $pdo->prepare($sql);
-    $query->bindValue(':searchQuery', '%' . $searchQuery . '%', PDO::PARAM_STR); // Используем '%' для поиска подстроки
+    $query->bindValue(':searchQuery', '%' . $searchQuery . '%', PDO::PARAM_STR);
     $query->execute();
     dbCheckError($query);
     return $query->fetchAll();
@@ -180,9 +234,8 @@ function selectTablePostUser($userId)
     $sql = "SELECT p.*, u.username
     FROM post p
     JOIN users u ON p.user_id_post = u.id_users
-    WHERE p.user_id_post = :user_id";
-    
-
+    WHERE p.user_id_post = :user_id
+    ORDER BY p.created DESC";
 
     $query = $pdo->prepare($sql);
     $query->execute(['user_id' => $userId]);
@@ -199,6 +252,20 @@ function selectAll($table)
     dbCheckError($query);
     return $query->fetchAll();
 }
+function searchUsersAndStatusSub($table, $currentUserId, $searchQuery) {
+    global $pdo;
+
+    $sql = "
+        SELECT u.*, 
+               EXISTS(SELECT 1 FROM subscriber WHERE idSub = :currentUserId AND id = u.id_users) as is_subscribed
+        FROM $table u
+        WHERE u.username LIKE :searchQuery";
+
+    $query = $pdo->prepare($sql);
+    $query->execute(['currentUserId' => $currentUserId, 'searchQuery' => '%' . $searchQuery . '%']);
+    dbCheckError($query);
+    return $query->fetchAll();
+}
 function selectUserAndStatusSub($table, $currentUserId)
 {
     global $pdo;
@@ -207,6 +274,56 @@ function selectUserAndStatusSub($table, $currentUserId)
         SELECT u.*, 
                EXISTS(SELECT 1 FROM subscriber WHERE idSub = :currentUserId AND id = u.id_users) as is_subscribed
         FROM $table u";
+
+    $query = $pdo->prepare($sql);
+    $query->execute(['currentUserId' => $currentUserId]);
+    dbCheckError($query);
+    return $query->fetchAll();
+}
+function searchSubscribedUsersByUsername($table, $currentUserId, $searchQuery)
+{
+    global $pdo;
+
+    $sql = "
+        SELECT u.*
+        FROM $table u
+        WHERE EXISTS (
+            SELECT 1 
+            FROM subscriber 
+            WHERE idSub = :currentUserId AND id = u.id_users
+        ) AND u.username LIKE :searchQuery";
+
+    $query = $pdo->prepare($sql);
+    $query->execute(['currentUserId' => $currentUserId, 'searchQuery' => '%' . $searchQuery . '%']);
+    dbCheckError($query);
+    return $query->fetchAll();
+}
+function selectSubscribedUsersNewToOld($table, $currentUserId)
+{
+    global $pdo;
+
+    $sql = "
+        SELECT u.*, s.time_sub
+        FROM $table u
+        JOIN subscriber s ON s.id = u.id_users
+        WHERE s.idSub = :currentUserId
+        ORDER BY s.time_sub DESC";
+
+    $query = $pdo->prepare($sql);
+    $query->execute(['currentUserId' => $currentUserId]);
+    dbCheckError($query);
+    return $query->fetchAll();
+}
+function selectSubscribedUsersOldToNew($table, $currentUserId)
+{
+    global $pdo;
+
+    $sql = "
+        SELECT u.*, s.time_sub 
+        FROM $table u
+        JOIN subscriber s ON s.id = u.id_users
+        WHERE s.idSub = :currentUserId
+        ORDER BY s.time_sub ASC";
 
     $query = $pdo->prepare($sql);
     $query->execute(['currentUserId' => $currentUserId]);
@@ -231,6 +348,19 @@ function selectSubscribedUsers($table, $currentUserId)
     dbCheckError($query);
     return $query->fetchAll();
 }
+function isSubscribed($currentUserId, $profileUserId)
+{
+    global $pdo;
+
+    $sql = "SELECT 1 FROM subscriber WHERE idSub = :currentUserId AND id = :profileUserId";
+
+    $query = $pdo->prepare($sql);
+    $query->execute(['currentUserId' => $currentUserId, 'profileUserId' => $profileUserId]);
+    dbCheckError($query);
+
+    return $query->rowCount() > 0;
+}
+
 // Запрос на получение данных одной таблицы $volume = All или любое нужное число
 function selectTable($table, $params = [], $volume)
 {
