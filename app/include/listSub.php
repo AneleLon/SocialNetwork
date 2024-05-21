@@ -1,6 +1,6 @@
 <div class="row title-table post">
     <div class="col-1">ID</div>
-    <div class="col-3">Пользователь</div>
+    <div class="col-3">User</div>
 </div>
 <?php
 

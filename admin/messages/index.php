@@ -33,7 +33,7 @@ include '../../app/database/db.php';
             </div>
             <!--поиск и фильтр-->
             <div class="sidebar col-md-3">
-                <?php include("../../app/include/searchAndFilter.php");
+                <?php include("../../app/include/searchMes.php");
                 ?>
             </div>
         </div>

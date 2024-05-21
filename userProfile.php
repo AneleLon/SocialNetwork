@@ -62,6 +62,8 @@ $subscription = getSubscriptionCount($_GET['id']);
                                     </div>
 
                                 <?php endif ?>
+                                <div class = "mes">
+                                <a href="<?php echo BASE_URL . "dialogue.php?id=" .$info['id_users'] ; ?>" class="btn btn-primary">message</a></div>
                             <?php endif ?>
                         </div>
                     </div>

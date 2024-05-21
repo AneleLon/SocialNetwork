@@ -1,5 +1,6 @@
 <?php include '../../path.php';
 include '../../app/database/db.php';
+include "../../app/controllers/submitMes.php";
 ?>
 <!doctype html>
 <html lang="en">
@@ -26,15 +27,12 @@ include '../../app/database/db.php';
     <!--main-->
     <div class="container">
         <div class="container row">
+            <div class="col-md-2"></div>
             <div class="col-md-8">
                 <?php include("../../app/include/dialog.php");
                 ?>
             </div>
-            <!--поиск и фильтр-->
-            <div class="sidebar col-md-3">
-                <?php include("../../app/include/searchAndFilter.php");
-                ?>
-            </div>
+            <div class="col-md-2"></div>
         </div>
     </div>
 

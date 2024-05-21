@@ -9,7 +9,7 @@ function tt($value)
     print_r($value);
     echo '</pre>';
 }
-function getLatestMessagesWithUsers($userId)
+function getLatestMessagesWithUsers($userId, $lim = 0)
 {
     global $pdo;
 
@@ -35,7 +35,8 @@ function getLatestMessagesWithUsers($userId)
                 (m.idFrom = :userId AND m.idIn = u.id_users)
             WHERE m.time = latest_messages.max_time
             ORDER BY last_message_time DESC";
-
+    if ($lim > 0) {
+        $sql = $sql. " LIMIT ". $lim;}
     $query = $pdo->prepare($sql);
 
     $query->execute(['userId' => $userId]);
@@ -43,6 +44,7 @@ function getLatestMessagesWithUsers($userId)
 
     return $query->fetchAll();
 }
+
 function getDialogueMessages($userId1, $userId2)
 {
     global $pdo;

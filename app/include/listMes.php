@@ -1,10 +1,16 @@
 <?php
 $latestMessages = getLatestMessagesWithUsers($_SESSION['id']);
+
+if (strpos($_SERVER['REQUEST_URI'], 'admin') !== false){
+    $pathImage ="/admin/messages/" ;
+}else{
+    $pathImage ="";
+}
 ?>
 <div>
     <ul>
         <?php foreach ($latestMessages as $key => $message) :?>
-        <li onclick="location.href='<?php echo BASE_URL . "/admin/messages/dialogue.php?id=" . $message['id']; ?>';">
+        <li onclick="location.href='<?php echo BASE_URL . $pathImage . "dialogue.php?id=" . $message['id']; ?>';">
             <div class="row post">
                 <div class="col-3"><?=$message['username']?></div>
                 <div class="col-5"><?=$message['last_message']?></div>

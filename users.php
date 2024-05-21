@@ -30,21 +30,29 @@ include "app/controllers/listUsers.php";
     <div class="container">
         <div class="container row">
             <!--Лента-->
-            <div class="col-md-8">
+            <div class="col-md-3">
+                <?php include("app/include/alerts.php");
+                ?>
+            </div>
+            <div class="col-md-6">
                 <div class="row title-table post">
                     <div class="col-1">ID</div>
                     <div class="col-3">Username</div>
-                    <div class="col-2">Admin</div>
+                    <?php if ($_SESSION['admin'] === 1) : ?>
+                        <div class="col-2">Admin</div>
+                    <?php endif ?>
                 </div>
                 <?php
-                
+
                 foreach ($usersAll as $key => $user) :
                 ?>
                     <?php if ($user['id_users'] !== $_SESSION['id']) : ?>
                         <div class="row post">
                             <div class="col-1"><?= $user['id_users'] ?></div>
-                            <div class="col-3"><?= $user['username'] ?></div>
+                            <div class="col-5"><a href="<?php echo BASE_URL . "userProfile.php?id=" . $user['id_users']; ?>"><?= $user['username'] ?></a></div>
+                            <?php if ($_SESSION['admin'] === 1) : ?>
                             <div class="col-2"><?= $user['admin'] ?></div>
+                            <?php endif ?>
                             <?php if ($user['is_subscribed'] === 0) : ?>
                                 <div class="col-1">
                                     <a href="?sub=<?= $user['id_users'] ?>" class="btn btn-primary">sub</a>

@@ -1,9 +1,6 @@
 <?php include 'path.php';
 include 'app/database/db.php';
-include "app/controllers/sub.php";
-include "app/controllers/unsub.php";
-include "app/controllers/listsub.php";
-
+include "app/controllers/submitMes.php";
 ?>
 <!doctype html>
 <html lang="en">
@@ -30,25 +27,14 @@ include "app/controllers/listsub.php";
     <!--main-->
     <div class="container">
         <div class="container row">
-            <div class="col-md-3">
-                <?php include("app/include/alerts.php");
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <?php include("app/include/dialog.php");
                 ?>
             </div>
-            <!--Лента-->
-            <div class="col-md-6">
-                <?php include("app/include/listSub.php");
-                ?>
-            </div>
-            <!--поиск и фильтр-->
-            <div class="sidebar col-md-3">
-                <?php include("app/include/searchAndFilterSubs.php");
-                ?>
-            </div>
+            <div class="col-md-2"></div>
         </div>
     </div>
-
-
-
 
 </body>
 

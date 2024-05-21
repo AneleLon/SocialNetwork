@@ -8,6 +8,7 @@ $username = selectTable('users', ['id_users' => $_GET['id']], 1);
 </div>
 <div class="post row">
     <form action="dialogue.php" method="post">
+        <input type="hidden" name="id" value="<?=$_GET['id']?>">
         <div class="mb-3">
             <label for="content" class="form-label"></label>
             <textarea name="text" class="form-control" id="content" rows="3" placeholder="Текст сообщения"></textarea>

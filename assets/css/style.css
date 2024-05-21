@@ -200,3 +200,11 @@ height: 150px;
 form div.err{
     color: red;
 }
+
+
+ul {
+    list-style-type: none;
+}
+.mes{
+    margin-top: 5px;
+}
