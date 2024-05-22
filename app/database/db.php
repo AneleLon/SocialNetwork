@@ -455,7 +455,7 @@ function delete($table, $beingDelete, $name)
     dbCheckError($query);
 }
 function deleteSub($id, $idSub)
-{
+{ 
     global $pdo;
     $sql = "DELETE FROM subscriber WHERE id = $id AND idSub = $idSub";
 
