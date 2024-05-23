@@ -51,10 +51,14 @@ if (isset($_GET['edit'])) {
                     <input name="password" type="password" class="form-control" id="exampleInputPassword1" value="">
                 </div>
                 <div class="w-100"></div>
+                <?php if ($_SESSION['admin']==1) : ?>
                 <div class="mb-3 col-10 col-md-8">
                     <label for="exampleInputAdmin" class="form-label">admin</label>
                     <input name="admin" type="text" class="form-control" id="exampleInputAdmin" value="<?php echo $user['admin'] ?? ''; ?>">
                 </div>
+                <?php else: ?>
+                    <input name="admin" type="hidden" class="form-control" id="exampleInputAdmin" value="<?php echo $user['admin'] ?? ''; ?>">
+                <?php endif;?>
                 <div class="w-100"></div>
                 <div class="mb-3 col-10 col-md-8">
                     <button type="submit" class="btn btn-primary" name="submit-edit">Изменить</button>
