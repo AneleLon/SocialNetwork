@@ -42,10 +42,6 @@ include "../../app/controllers/listsub.php";
             </div>
         </div>
     </div>
-
-
-
-
 </body>
 
 </html>

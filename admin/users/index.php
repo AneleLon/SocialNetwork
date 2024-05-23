@@ -43,9 +43,6 @@ include "../../app/controllers/listUsers.php";
             </div>
         </div>
     </div>
-
-
-
 </body>
 
 </html>
