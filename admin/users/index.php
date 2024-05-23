@@ -1,10 +1,10 @@
 <?php include '../../path.php';
 include '../../app/database/db.php';
-include "../../app/controllers/get_user_data.php";
 include "../../app/controllers/updateUser.php";
 include "../../app/controllers/deleteUser.php";
 include "../../app/controllers/sub.php";
 include "../../app/controllers/unsub.php";
+include "../../app/controllers/listUsers.php";
 ?>
 <!doctype html>
 <html lang="en">
@@ -38,7 +38,7 @@ include "../../app/controllers/unsub.php";
             </div>
             <!--поиск и фильтр-->
             <div class="sidebar col-md-3">
-                <?php include("../../app/include/searchAndFilter.php");
+                <?php include("../../app/include/searchUsers.php");
                 ?>
             </div>
         </div>

@@ -1,5 +1,4 @@
 <?php
-$latestMessages = getLatestMessagesWithUsers($_SESSION['id']);
 
 if (strpos($_SERVER['REQUEST_URI'], 'admin') !== false){
     $pathImage ="/admin/messages/" ;

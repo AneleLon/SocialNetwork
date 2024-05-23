@@ -1,6 +1,11 @@
 <div class="section search">
+    <?php if (strpos($_SERVER['REQUEST_URI'], 'admin') !== false) {
+        $pathImage = "index.php";
+    } else {
+        $pathImage = "subs.php";
+    } ?>
     <h3>Поиск</h3>
-    <form action="subs.php" method="get">
+    <form action="<?=$pathImage ?>" method="get">
         <input type="text" name="search-user" class="text-input" placeholder="Поиск...">
     </form>
 
@@ -14,16 +19,16 @@
     </script>
 </div>
 <?php
-if (strpos($_SERVER['REQUEST_URI'], 'admin') !== false){
-    $filerPath ="admin/posts/" ;
-}else{
-    $filerPath ="";
+if (strpos($_SERVER['REQUEST_URI'], 'admin') !== false) {
+    $filerPath = "admin/subs/index.php";
+} else {
+    $filerPath = "subs.php";
 }
 ?>
 <div class="section filter">
     <h3>Фильтр</h3>
     <ul>
-        <li><a href="<?= BASE_URL . $filerPath . "subs.php?filter=" . "NEWSUBS" ?>">Новые</a></li>
-        <li><a href="<?= BASE_URL . $filerPath . "subs.php?filter=" . "OLDSUBS" ?>">Старые</a></li>
+        <li><a href="<?= BASE_URL . $filerPath . "?filter=" . "NEWSUBS" ?>">Новые</a></li>
+        <li><a href="<?= BASE_URL . $filerPath . "?filter=" . "OLDSUBS" ?>">Старые</a></li>
     </ul>
 </div>

@@ -13,4 +13,4 @@ foreach ($usersAll as $key => $user) :
                 <a href="?unsub=<?= $user['id_users'] ?>" class="btn btn-primary">unsub</a>
             </div>
         </div>
-<?php endforeach; ?>
+<?php endforeach; ?> 

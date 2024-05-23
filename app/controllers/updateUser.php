@@ -26,8 +26,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit-edit'])){
             'admin' => $admin,
             'username' => $username,
         ];
-    }
+    }   if($_SESSION['id']== $id ){
         $_SESSION['username'] = $username;
+    }
         update('users',$id,'id_users',$editUser);
         header('Location: ' . $_SERVER['HTTP_REFERER']);
 

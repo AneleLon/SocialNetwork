@@ -1,6 +1,11 @@
 <div class="section search">
+    <?php if (strpos($_SERVER['REQUEST_URI'], 'admin') !== false) {
+        $pathImage = "index.php";
+    } else {
+        $pathImage = "users.php";
+    } ?>
     <h3>Поиск</h3>
-    <form action="users.php" method="get">
+    <form action="<?=$pathImage?>" method="get">
         <input type="text" name="search-user-all" class="text-input" placeholder="Поиск...">
     </form>
 

@@ -1,5 +1,7 @@
 <?php include 'path.php';
 include 'app/database/db.php';
+include "app/controllers/message.php";
+
 /* include "../../app/controllers"; */
 ?>
 <!doctype html>

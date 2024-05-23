@@ -2,6 +2,7 @@
 include '../../app/database/db.php';
 include "../../app/controllers/sub.php";
 include "../../app/controllers/unsub.php";
+include "../../app/controllers/listsub.php";
 
 ?>
 <!doctype html>
@@ -36,7 +37,7 @@ include "../../app/controllers/unsub.php";
             </div>
             <!--поиск и фильтр-->
             <div class="sidebar col-md-3">
-                <?php include("../../app/include/searchAndFilter.php");
+                <?php include("../../app/include/searchAndFilterSubs.php");
                 ?>
             </div>
         </div>

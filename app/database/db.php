@@ -9,6 +9,32 @@ function tt($value)
     print_r($value);
     echo '</pre>';
 }
+function searchMessagesWithUsers($userId, $searchQuery)
+{
+    global $pdo;
+
+    $searchQuery = '%' . $searchQuery . '%';
+
+    $sql = "SELECT 
+                u.id_users AS id,
+                u.username AS username,
+                m.text AS last_message,
+                m.time AS last_message_time
+            FROM users u
+            INNER JOIN message m ON 
+                (m.idFrom = u.id_users AND m.idIn = :userId) OR 
+                (m.idFrom = :userId AND m.idIn = u.id_users)
+            WHERE m.text LIKE :searchQuery 
+            GROUP BY u.id_users
+            ORDER BY last_message_time DESC";
+
+    $query = $pdo->prepare($sql);
+
+    $query->execute(['userId' => $userId, 'searchQuery' => $searchQuery]);
+    dbCheckError($query);
+
+    return $query->fetchAll();
+}
 function getLatestMessagesWithUsers($userId, $lim = 0)
 {
     global $pdo;
