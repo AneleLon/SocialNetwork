@@ -1,7 +1,3 @@
 #Папки
 /assets/image/
 /assets/imageuser/
-
-#файлы
-package-lock.json
-package.json
