@@ -98,9 +98,9 @@ function dbCheckError($query)
     if ($errInfo[0] !== PDO::ERR_NONE) {
         $errorMessage = "Ошибка базы данных: " . $errInfo[2] . " в запросе: " . $query->queryString;
         if (headers_sent()) {
-            error_log($errorMessage); // Лог -> /opt/lampp/logs/php_error_log
+            error_log($errorMessage); // /opt/lampp/logs/php_error_log
         } else {
-            echo $errorMessage;  //Отображение в веб
+            echo $errorMessage;  
         }
         exit();
     }
